@@ -26,12 +26,12 @@ public class TodoService {
     }
 
     public Optional<Todo> updateTodo(String id, Todo updatedTodo) {
-        if (!todos.containsKey(id)) {
-            return Optional.empty();
-        }
-        updatedTodo.setId(id);
-        todos.put(id, updatedTodo);
-        return Optional.of(updatedTodo);
+        return Optional.ofNullable(
+            todos.computeIfPresent(id, (k, v) -> {
+                updatedTodo.setId(id);
+                return updatedTodo;
+            })
+        );
     }
 
     public boolean deleteTodo(String id) {
