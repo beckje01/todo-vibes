@@ -1,8 +1,13 @@
 package com.beckje01.todovibes.model;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class Todo {
     private String id;
+    
+    @NotBlank(message = "Title is required")
     private String title;
+    
     private String description;
     private boolean completed;
 

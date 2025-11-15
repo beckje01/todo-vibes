@@ -6,16 +6,16 @@ A REST API for managing TODO items, built with Spring Boot. The todos are stored
 
 ## Requirements
 - Java 17 or higher
-- Maven 3.6 or higher
+- Gradle (wrapper included)
 
 ## Building the Application
 ```bash
-mvn clean install
+./gradlew build
 ```
 
 ## Running the Application
 ```bash
-mvn spring-boot:run
+./gradlew bootRun
 ```
 
 The application will start on `http://localhost:8080`
@@ -63,5 +63,10 @@ DELETE /api/todos/{id}
 
 ## Running Tests
 ```bash
-mvn test
+./gradlew test
 ```
+
+## Validation
+The API includes input validation:
+- `title` field is required and cannot be blank
+- Validation errors return HTTP 400 Bad Request with error details

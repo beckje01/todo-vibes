@@ -2,6 +2,7 @@ package com.beckje01.todovibes.controller;
 
 import com.beckje01.todovibes.model.Todo;
 import com.beckje01.todovibes.service.TodoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,13 +31,13 @@ public class TodoController {
     }
 
     @PostMapping
-    public ResponseEntity<Todo> createTodo(@RequestBody Todo todo) {
+    public ResponseEntity<Todo> createTodo(@Valid @RequestBody Todo todo) {
         Todo created = todoService.createTodo(todo);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Todo> updateTodo(@PathVariable String id, @RequestBody Todo todo) {
+    public ResponseEntity<Todo> updateTodo(@PathVariable String id, @Valid @RequestBody Todo todo) {
         return todoService.updateTodo(id, todo)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
