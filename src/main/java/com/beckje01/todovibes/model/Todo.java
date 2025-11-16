@@ -1,14 +1,21 @@
 package com.beckje01.todovibes.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 
+@Schema(description = "Todo item")
 public class Todo {
+    @Schema(description = "Unique identifier of the todo", example = "123e4567-e89b-12d3-a456-426614174000", accessMode = Schema.AccessMode.READ_ONLY)
     private String id;
     
     @NotBlank(message = "Title is required")
+    @Schema(description = "Title of the todo", example = "Buy groceries", requiredMode = Schema.RequiredMode.REQUIRED)
     private String title;
     
+    @Schema(description = "Detailed description of the todo", example = "Milk, eggs, bread")
     private String description;
+    
+    @Schema(description = "Completion status of the todo", example = "false")
     private boolean completed;
 
     public Todo() {

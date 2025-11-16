@@ -66,6 +66,18 @@ DELETE /api/todos/{id}
 ./gradlew test
 ```
 
+## OpenAPI Specification
+
+The API includes an OpenAPI 3.1 specification that describes all available endpoints.
+
+### Accessing the OpenAPI Spec
+
+- **JSON format**: `http://localhost:8080/v3/api-docs`
+- **YAML format**: `http://localhost:8080/v3/api-docs.yaml`
+- **Swagger UI** (interactive documentation): `http://localhost:8080/swagger-ui.html`
+
+The Swagger UI provides an interactive interface to explore and test the API endpoints directly from your browser.
+
 ## Validation
 The API includes input validation:
 - `title` field is required and cannot be blank
