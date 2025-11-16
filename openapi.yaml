@@ -1,0 +1,159 @@
+openapi: 3.1.0
+info:
+  title: Todo Vibes API
+  description: "A REST API for managing TODO items, built with Spring Boot. The todos\
+    \ are stored in-memory using a ConcurrentHashMap."
+  version: 0.0.1
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+tags:
+- name: Todo
+  description: Todo management APIs
+paths:
+  /api/todos/{id}:
+    get:
+      tags:
+      - Todo
+      summary: Get todo by ID
+      description: Retrieve a specific todo item by its ID
+      operationId: getTodoById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "404":
+          description: Todo not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Todo"
+        "200":
+          description: Successfully retrieved the todo
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Todo"
+    put:
+      tags:
+      - Todo
+      summary: Update a todo
+      description: Update an existing todo item by its ID
+      operationId: updateTodo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Todo"
+        required: true
+      responses:
+        "200":
+          description: Todo updated successfully
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Todo"
+        "404":
+          description: Todo not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Todo"
+        "400":
+          description: Invalid input - title is required
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Todo"
+    delete:
+      tags:
+      - Todo
+      summary: Delete a todo
+      description: Delete an existing todo item by its ID
+      operationId: deleteTodo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: Todo deleted successfully
+        "404":
+          description: Todo not found
+  /api/todos:
+    get:
+      tags:
+      - Todo
+      summary: Get all todos
+      description: Retrieve a list of all todo items
+      operationId: getAllTodos
+      responses:
+        "200":
+          description: Successfully retrieved list of todos
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Todo"
+    post:
+      tags:
+      - Todo
+      summary: Create a new todo
+      description: Create a new todo item with the provided details
+      operationId: createTodo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Todo"
+        required: true
+      responses:
+        "201":
+          description: Todo created successfully
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Todo"
+        "400":
+          description: Invalid input - title is required
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Todo"
+components:
+  schemas:
+    Todo:
+      type: object
+      description: Todo item
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the todo
+          example: 123e4567-e89b-12d3-a456-426614174000
+          readOnly: true
+        title:
+          type: string
+          description: Title of the todo
+          example: Buy groceries
+        description:
+          type: string
+          description: Detailed description of the todo
+          example: "Milk, eggs, bread"
+        completed:
+          type: boolean
+          description: Completion status of the todo
+          example: false
+      required:
+      - title
